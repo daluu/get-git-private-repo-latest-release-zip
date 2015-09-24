@@ -7,6 +7,7 @@ OWNER={OWNER}
 REPO={REPOSITORY}
 
 curl -u $ID:$PW https://api.github.com/repos/$OWNER/$REPO/releases/latest > latest.json
+# if there is not "latest" release tag, just call the GH API against "/releases" rather than "/releases/latest"
 TAG_NAME=`cat latest.json | jq '.tag_name' |  tr -d '"'`
 URL="https://github.com/$OWNER/$REPO/archive/$TAG_NAME.zip"
 curl -O -J -L -u $ID:$PW $URL
